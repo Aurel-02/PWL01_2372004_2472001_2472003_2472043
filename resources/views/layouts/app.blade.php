@@ -36,6 +36,7 @@
         </script>
 
         <style>
+            [x-cloak] { display: none !important; }
             body { font-family: 'Plus Jakarta Sans', sans-serif; }
             .bg-mesh {
                 background: 

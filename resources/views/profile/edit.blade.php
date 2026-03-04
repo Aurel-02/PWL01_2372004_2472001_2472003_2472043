@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-black text-2xl text-white uppercase tracking-tight">
+        <h2 class="font-black text-2xl text-primary uppercase tracking-tight">
             PENGATURAN <span class="text-secondary">PROFIL</span>
         </h2>
     </x-slot>
@@ -17,7 +17,7 @@
                         <h3 class="text-4xl font-black tracking-tighter">Rp {{ number_format(Auth::user()->balance ?? 0, 0, ',', '.') }}</h3>
                     </div>
                 </div>
-                <a href="{{ route('user.balance') }}" class="bg-white text-secondary-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-secondary/10 transition-all shadow-xl">
+                <a href="{{ route('user.balance') }}" class="bg-white text-primary px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-secondary/10 transition-all shadow-xl">
                     ISI SALDO &rarr;
                 </a>
             </div>

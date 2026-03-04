@@ -49,8 +49,8 @@
                     @csrf
                     <div>
                         <input type="text" name="ticket_code" 
-                            class="w-full bg-gray-50 border-2 border-gray-100 focus:border-secondary focus:ring-0 rounded-3xl px-8 py-6 text-center text-xl font-black tracking-[0.2em] text-primary placeholder-gray-200 transition-all font-mono"
-                            placeholder="TIX-EVENT-XXXX"
+                            class="w-full bg-gray-50 border-2 border-gray-100 focus:border-secondary focus:ring-0 rounded-3xl px-8 py-6 text-center text-xl font-black tracking-[0.2em] text-primary placeholder-gray-300 transition-all font-mono"
+                            placeholder="TIX-4-ABCDE12345"
                             required
                             autofocus>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="mt-12 text-center p-8 bg-primary rounded-[2.5rem] text-white">
                     <p class="text-[10px] font-black text-secondary uppercase tracking-[0.3em] mb-4">Petunjuk</p>
                     <p class="text-xs font-bold text-gray-400 uppercase leading-relaxed">
-                        Silakan scan kode tiket yang ada di halaman "Tiket Saya" atau masukkan kodenya secara manual di terminal ini untuk validasi check-in mandiri.
+                        Silakan masukkan kode tiket lengkap seperti yang tertera pada bagian atas tiket Anda (misal: TIX-4-6ICPJZENQSB2).
                     </p>
                 </div>
             </div>

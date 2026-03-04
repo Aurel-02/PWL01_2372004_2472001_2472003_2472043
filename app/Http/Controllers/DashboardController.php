@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Transaction;
 use App\Models\Ticket;
+use App\Models\Waitlist;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -61,14 +62,22 @@ class DashboardController extends Controller
 
             return view('dashboard', compact('activeEvents', 'ticketsSold', 'totalRevenue', 'chartLabels', 'chartValues', 'recentEvents'));
         } else {
-            // User Dashboard - Relaxed date filter so user can see their test events
+            // User Dashboard
             $events = Event::with(['category', 'ticketTypes'])
                             ->where('status', 'published')
                             ->where('is_verified', true)
                             ->orderBy('start_time', 'asc')
                             ->get();
+            
             $myTickets = Ticket::where('user_id', $user->id)->count();
-            return view('dashboard', compact('events', 'myTickets'));
+            
+            // Mengambil data waitlist user untuk notifikasi
+            $myWaitlists = Waitlist::where('user_id', $user->id)
+                                ->with(['event', 'ticketType'])
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
+            
+            return view('dashboard', compact('events', 'myTickets', 'myWaitlists'));
         }
     }
 }

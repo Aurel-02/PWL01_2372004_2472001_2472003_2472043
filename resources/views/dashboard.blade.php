@@ -183,6 +183,47 @@
                     </div>
                 </div>
 
+                @if($myWaitlists && $myWaitlists->count() > 0)
+                    <div class="mb-12 space-y-4">
+                        <h4 class="text-xs font-black text-gray-400 uppercase tracking-[0.3em] px-2 italic">Notifikasi Antrean (Waiting List)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            @foreach($myWaitlists as $wl)
+                                <div class="relative overflow-hidden group bg-white p-8 rounded-[2.5rem] border {{ $wl->status === 'promoted' ? 'border-secondary shadow-xl shadow-secondary/10' : 'border-gray-100' }} transition-all">
+                                    @if($wl->status === 'promoted')
+                                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/10 rounded-full blur-2xl animate-pulse"></div>
+                                        <div class="flex items-start gap-5 relative z-10">
+                                            <div class="w-14 h-14 bg-secondary text-white rounded-2xl flex items-center justify-center shadow-lg shrink-0">
+                                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-lg font-black text-primary uppercase tracking-tight leading-none mb-2">Andakah Yang Beruntung?</h5>
+                                                <p class="text-xs font-bold text-gray-500 leading-relaxed mb-4">
+                                                    Slot tiket untuk <span class="text-secondary font-black">{{ $wl->event->title }}</span> kategori <span class="bg-secondary/10 px-2 py-0.5 rounded text-secondary">{{ $wl->ticketType->name }}</span> sudah tersedia khusus untuk Anda!
+                                                </p>
+                                                <a href="{{ route('user.events.show', $wl->event_id) }}" class="inline-flex items-center gap-2 bg-secondary text-white font-black uppercase text-[10px] tracking-widest px-6 py-3 rounded-xl hover:bg-black transition-all shadow-md">
+                                                    AMBIL SEKARANG &rarr;
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="flex items-start gap-5 opacity-60">
+                                            <div class="w-14 h-14 bg-gray-100 text-gray-400 rounded-2xl flex items-center justify-center shrink-0">
+                                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-lg font-black text-gray-400 uppercase tracking-tight leading-none mb-2 italic">Masih Menunggu...</h5>
+                                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
+                                                    Antrean Anda untuk {{ $wl->event->title }} sedang diproses. Kami akan memberitahu jika slot tersedia.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     @forelse($events ?? [] as $event)
                         <div class="group bg-white rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col border border-white hover:border-secondary/20 transition-all duration-700 hover:-translate-y-4">

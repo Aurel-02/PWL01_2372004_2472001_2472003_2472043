@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h2 class="font-black text-4xl text-white leading-tight tracking-tight uppercase">
+                <h2 class="font-black text-4xl text-primary leading-tight tracking-tight uppercase">
                     Saldo <span class="text-secondary">Akun</span>
                 </h2>
                 <p class="text-pearl font-bold uppercase tracking-widest text-[10px] mt-2">Kelola dana Anda untuk pembelian tiket yang lebih cepat.</p>

@@ -18,8 +18,11 @@ class TicketCheckController extends Controller
             'ticket_code' => 'required|string'
         ]);
 
+        // Membersihkan kode tiket dari spasi dan tanda '#'
+        $code = strtoupper(trim(str_replace('#', '', $request->ticket_code)));
+
         $ticket = Ticket::with(['ticketType.event', 'user'])
-                        ->where('ticket_code', $request->ticket_code)
+                        ->where('ticket_code', $code)
                         ->first();
 
         if (!$ticket) {

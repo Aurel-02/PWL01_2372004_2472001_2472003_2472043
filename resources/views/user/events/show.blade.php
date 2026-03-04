@@ -10,7 +10,42 @@
         </div>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12" x-data="{ showError: {{ session('error') ? 'true' : 'false' }} }">
+        <!-- Error Modal -->
+        <div x-show="showError" 
+             class="fixed inset-0 z-50 flex items-center justify-center p-4"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-cloak>
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showError = false"></div>
+            
+            <!-- Modal Content -->
+            <div class="bg-white rounded-[3rem] shadow-2xl w-full max-w-md relative z-10 overflow-hidden border border-rose-100"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="scale-90 opacity-0"
+                 x-transition:enter-end="scale-100 opacity-100">
+                
+                <div class="p-10 text-center">
+                    <div class="w-20 h-20 bg-rose-50 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-rose-500 border border-rose-100">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h4 class="text-2xl font-black text-primary uppercase tracking-tight mb-2">OPS! ADA <span class="text-rose-600">MASALAH</span></h4>
+                    <p class="text-gray-500 font-bold text-xs uppercase tracking-widest mb-8 leading-relaxed">
+                        {{ session('error') }}
+                    </p>
+                    
+                    <button @click="showError = false" class="block w-full bg-primary hover:bg-black text-white font-black py-4 rounded-2xl shadow-xl transition-all transform active:scale-95 uppercase tracking-widest text-xs">
+                        Mengerti
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div class="bg-white rounded-[3rem] shadow-2xl shadow-secondary/20 overflow-hidden border border-white">
             <!-- Event Hero Section -->
             <div class="relative h-[32rem]">
@@ -148,16 +183,17 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                                         LANJUT KE PEMBAYARAN
                                     </button>
+                                </form>
                                 @else
-                                    <form action="{{ route('user.events.waitlist', $event->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="ticket_type_id" value="{{ $event->ticketTypes->first()->id }}">
-                                        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-black uppercase tracking-[0.2em] py-6 rounded-3xl shadow-xl transition-all flex items-center justify-center gap-3">
-                                            MASUK DAFTAR TUNGGU (QUEUE)
-                                        </button>
-                                    </form>
+                                </form>
+                                <form action="{{ route('user.events.waitlist', $event->id) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="ticket_type_id" value="{{ $event->ticketTypes->first()->id }}">
+                                    <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-black uppercase tracking-[0.2em] py-6 rounded-3xl shadow-xl transition-all flex items-center justify-center gap-3">
+                                        MASUK DAFTAR TUNGGU (QUEUE)
+                                    </button>
+                                </form>
                                 @endif
-                            </form>
                         @else
                             <div class="bg-white/50 backdrop-blur-md border-2 border-dashed border-gray-200 rounded-[2rem] p-12 mb-8">
                                 <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
